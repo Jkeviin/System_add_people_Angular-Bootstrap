@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Persona } from 'src/app/persona.model';
 
 @Component({
@@ -28,9 +28,13 @@ export class FormularioComponent {
   apellidoInput: string = '';
 */
 
-  public agregarPersona(nombreInput: HTMLInputElement, apellidoInput: HTMLInputElement){
-    if(nombreInput.value != '' && apellidoInput.value != ''){
-      let persona1 = new Persona(nombreInput.value, apellidoInput.value);
+  @ViewChild ('nombreInput') nombreInput: ElementRef; // ElementRef es un tipo de dato que permite acceder a los elementos del DOM
+  @ViewChild ('apellidoInput') apellidoInput: ElementRef;
+
+  public agregarPersona(){
+    if(this.nombreInput.nativeElement.value != '' && this.apellidoInput.nativeElement.value != ''){
+      let persona1 = new Persona(this.nombreInput.nativeElement.value, this.apellidoInput.nativeElement.value);
+      // NativeElement es una propiedad que permite acceder al valor del elemento del DOM
       //this.personas.push(persona1);
       this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
       // En resumidas palabras, emite la persona creada al componente padre
