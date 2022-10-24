@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Persona } from './persona.model';
+import { LoggingService} from './LoggingService.service';
 
 @Component({
   selector: 'app-root',
