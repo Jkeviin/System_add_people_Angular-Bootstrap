@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PersonaComponent } from './componentes/persona/persona.component';
 import { FormularioComponent } from './componentes/formulario/formulario.component';
 import { LoggingService } from './LoggingService.service';
+import { PersonasService } from './personas.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,10 @@ import { LoggingService } from './LoggingService.service';
     BrowserModule,
     FormsModule
   ],
-  providers: [LoggingService], // Se agrega el servicio a este nivel para que pueda ser usado en todos los componentes
+  providers: [
+    LoggingService,
+    PersonasService
+  ], // Se agrega el servicio a este nivel para que pueda ser usado en todos los componentes
   bootstrap: [AppComponent]
 })
 export class AppModule { }

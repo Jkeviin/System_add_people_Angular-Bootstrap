@@ -1,24 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Persona } from './persona.model';
-import { LoggingService} from './LoggingService.service';
+import { LoggingService } from './LoggingService.service';
+import { PersonasService } from './personas.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   titulo = 'Listado de Personas';
-  personas: Persona[] = [
-      new Persona('Kevin', 'Ortega'),
-      new Persona('Juan', 'Perez'),
-      new Persona('Daniel', 'Alvares')
-    ];
+  personas: Persona[] = [];
 
-    constructor(private loggingService: LoggingService){}  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
+  constructor(private loggingService: LoggingService,
+              private personasService: PersonasService) {} // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
 
-    public personaAgregada(persona : Persona){  // Recibe la persona creada en el componente hijo
-      this.personas.push(persona);
-      this.loggingService.enviarMensajeAConsola(`Enviamos desde el componente padre persona con nombre: ${persona.nombre}`);
-    }
+  ngOnInit(): void {  // se ejecuta cuando se carga el componente
+    this.personas = this.personasService.personas;
+  }
+
 }

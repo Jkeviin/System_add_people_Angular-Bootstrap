@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LoggingService } from 'src/app/LoggingService.service';
 import { Persona } from 'src/app/persona.model';
+import { PersonasService } from 'src/app/personas.service';
 
 @Component({
   selector: 'app-formulario',
@@ -9,8 +10,6 @@ import { Persona } from 'src/app/persona.model';
   // providers: [LoggingService] // Se agrega el servicio al componente (ya está en app.module.ts)
 })
 export class FormularioComponent {
-
-  @Output() personaCreada = new EventEmitter<Persona>();
 
   /*  @Output permite enviar datos al componente padre
       EventEmitter en este caso lo que hace es como un canal de comunicación entre el componente hijo y el padre
@@ -30,7 +29,8 @@ export class FormularioComponent {
   apellidoInput: string = '';
 */
 
-  constructor(private loggingService: LoggingService){}  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
+  constructor(private loggingService: LoggingService,
+              private personasService: PersonasService){}  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
 
   @ViewChild ('nombreInput') nombreInput: ElementRef; // ElementRef es un tipo de dato que permite acceder a los elementos del DOM
   @ViewChild ('apellidoInput') apellidoInput: ElementRef;
@@ -40,9 +40,9 @@ export class FormularioComponent {
       let persona1 = new Persona(this.nombreInput.nativeElement.value, this.apellidoInput.nativeElement.value);
       // NativeElement es una propiedad que permite acceder al valor del elemento del DOM
       //this.personas.push(persona1);
-      this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
+      //this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
       // En resumidas palabras, emite la persona creada al componente padre
-
+      this.personasService.agregarPersona(persona1);
       this.loggingService.enviarMensajeAConsola(`Enviamos persona con nombre: ${persona1.nombre} y apellido: ${persona1.apellido}`);
 
     }else{
