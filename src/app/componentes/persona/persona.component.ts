@@ -11,7 +11,7 @@ export class PersonaComponent  implements OnInit{
   @Input() persona: Persona;  // @input permite recibir datos desde el componente padre
   @Input() indice: number;
 
-  constructor() { }
+    constructor() { }
 
   ngOnInit(): void {
   }

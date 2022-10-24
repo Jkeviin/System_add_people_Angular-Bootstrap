@@ -1,10 +1,12 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { LoggingService } from 'src/app/LoggingService.service';
 import { Persona } from 'src/app/persona.model';
 
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
-  styleUrls: ['./formulario.component.css']
+  styleUrls: ['./formulario.component.css'],
+  // providers: [LoggingService] // Se agrega el servicio al componente (ya está en app.module.ts)
 })
 export class FormularioComponent {
 
@@ -28,6 +30,8 @@ export class FormularioComponent {
   apellidoInput: string = '';
 */
 
+  constructor(private loggingService: LoggingService){}  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
+
   @ViewChild ('nombreInput') nombreInput: ElementRef; // ElementRef es un tipo de dato que permite acceder a los elementos del DOM
   @ViewChild ('apellidoInput') apellidoInput: ElementRef;
 
@@ -38,10 +42,12 @@ export class FormularioComponent {
       //this.personas.push(persona1);
       this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
       // En resumidas palabras, emite la persona creada al componente padre
+
+      this.loggingService.enviarMensajeAConsola(`Enviamos persona con nombre: ${persona1.nombre} y apellido: ${persona1.apellido}`);
+
     }else{
       alert('Debe ingresar los datos');
     }
-
   }
 
 }

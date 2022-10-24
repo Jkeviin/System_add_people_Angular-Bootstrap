@@ -14,7 +14,10 @@ export class AppComponent {
       new Persona('Daniel', 'Alvares')
     ];
 
+    constructor(private loggingService: LoggingService){}  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
+
     public personaAgregada(persona : Persona){  // Recibe la persona creada en el componente hijo
       this.personas.push(persona);
+      this.loggingService.enviarMensajeAConsola(`Enviamos desde el componente padre persona con nombre: ${persona.nombre}`);
     }
 }

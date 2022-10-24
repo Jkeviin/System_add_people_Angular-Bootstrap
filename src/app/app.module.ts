@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { PersonaComponent } from './componentes/persona/persona.component';
 import { FormularioComponent } from './componentes/formulario/formulario.component';
+import { LoggingService } from './LoggingService.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { FormularioComponent } from './componentes/formulario/formulario.compone
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [LoggingService], // Se agrega el servicio a este nivel para que pueda ser usado en todos los componentes
   bootstrap: [AppComponent]
 })
 export class AppModule { }
