@@ -13,16 +13,8 @@ export class AppComponent {
       new Persona('Juan', 'Perez'),
       new Persona('Daniel', 'Alvares')
     ];
-  nombreInput: string = '';
-  apellidoInput: string = '';
 
-  public agregarPersona(){
-    if(this.nombreInput != '' && this.apellidoInput != ''){
-      let persona1 = new Persona(this.nombreInput, this.apellidoInput);
-      this.personas.push(persona1);
-    }else{
-      alert('Debe ingresar los datos');
+    public personaAgregada(persona : Persona){  // Recibe la persona creada en el componente hijo
+      this.personas.push(persona);
     }
-
-  }
 }

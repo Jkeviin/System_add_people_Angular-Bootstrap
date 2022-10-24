@@ -3,37 +3,12 @@
     <h3>{{ titulo }}</h3>
   </div>
   <hr />
-  <form class="form-row">
-    <div class="form-group col-md-2">
-      <label class="sr-only">Nombre:</label>
-      <input
-        type="text"
-        name="nombre"
-        id="nombre"
-        autocomplete="off"
-        placeholder="Nombre"
-        class="form-control"
-        [(ngModel)]="nombreInput"
-      />
-    </div>
-    <div class="form-group col-md-2">
-      <label class="sr-only">Apellido:</label>
-      <input
-        type="text"
-        name="apellido"
-        id="apellido"
-        autocomplete="off"
-        placeholder="Apellido"
-        class="form-control"
-        [(ngModel)]="apellidoInput"
-      />
-    </div>
-    <div class="col">
-      <button class="btn btn-primary" type="submit" (click)="agregarPersona()">
-        Agregar
-      </button>
-    </div>
-  </form>
+  <!--  -->
+  <app-formulario
+    (personaCreada)="personaAgregada($event)"
+  ><!--  Se utiliza el evento personalizado personaCreada porque es el que se emite desde el componente formulario -->
+    <!-- $event es el valor que se emite desde el componente formulario -->
+  </app-formulario>
   <hr />
   <app-persona
     *ngFor="let personaElemento of personas; let i = index"
