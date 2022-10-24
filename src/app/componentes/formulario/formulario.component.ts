@@ -22,12 +22,15 @@ export class FormularioComponent {
         Un ejemplo de un canal de comunicación que envía un string sería:
         @Output() nombreDelCanal = new EventEmitter<string>();
   */
+
+/*
   nombreInput: string = '';
   apellidoInput: string = '';
+*/
 
-  public agregarPersona(){
-    if(this.nombreInput != '' && this.apellidoInput != ''){
-      let persona1 = new Persona(this.nombreInput, this.apellidoInput);
+  public agregarPersona(nombreInput: HTMLInputElement, apellidoInput: HTMLInputElement){
+    if(nombreInput.value != '' && apellidoInput.value != ''){
+      let persona1 = new Persona(nombreInput.value, apellidoInput.value);
       //this.personas.push(persona1);
       this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
       // En resumidas palabras, emite la persona creada al componente padre
