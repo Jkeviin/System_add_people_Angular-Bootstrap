@@ -24,27 +24,28 @@ export class FormularioComponent {
         @Output() nombreDelCanal = new EventEmitter<string>();
   */
 
-/*
+
   nombreInput: string = '';
   apellidoInput: string = '';
-*/
+
 
   constructor(private loggingService: LoggingService,
-              private personasService: PersonasService){}  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
+              private personasService: PersonasService){
+                this.personasService.saludar.subscribe(
+                  (indice : number) => alert("El indice es: " + indice));
+              }  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
 
-  @ViewChild ('nombreInput') nombreInput: ElementRef; // ElementRef es un tipo de dato que permite acceder a los elementos del DOM
-  @ViewChild ('apellidoInput') apellidoInput: ElementRef;
+/*   @ViewChild ('nombreInput') nombreInput: ElementRef; // ElementRef es un tipo de dato que permite acceder a los elementos del DOM
+  @ViewChild ('apellidoInput') apellidoInput: ElementRef; */
 
   public agregarPersona(){
-    if(this.nombreInput.nativeElement.value != '' && this.apellidoInput.nativeElement.value != ''){
-      let persona1 = new Persona(this.nombreInput.nativeElement.value, this.apellidoInput.nativeElement.value);
+    if(this.nombreInput != '' && this.apellidoInput != ''){
+      let persona1 = new Persona(this.nombreInput, this.apellidoInput);
       // NativeElement es una propiedad que permite acceder al valor del elemento del DOM
       //this.personas.push(persona1);
       //this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
       // En resumidas palabras, emite la persona creada al componente padre
       this.personasService.agregarPersona(persona1);
-      this.loggingService.enviarMensajeAConsola(`Enviamos persona con nombre: ${persona1.nombre} y apellido: ${persona1.apellido}`);
-
     }else{
       alert('Debe ingresar los datos');
     }

@@ -1,18 +1,20 @@
-<div class="container">
-  <div class="col">
-    <h3>{{ titulo }}</h3>
-  </div>
-  <hr />
-  <!--  -->
-  <app-formulario
-  ><!--  Se utiliza el evento personalizado personaCreada porque es el que se emite desde el componente formulario -->
-    <!-- $event es el valor que se emite desde el componente formulario -->
-  </app-formulario>
-  <hr />
-  <app-persona
-    *ngFor="let personaElemento of personas; let i = index"
-    [persona]="personaElemento"
-    [indice]="i"
-  >
-  </app-persona>
+<div class="box" id="heading">
+    <h1>{{ titulo }}</h1>
 </div>
+  <!--  -->
+<div class="box">
+  <app-persona
+  *ngFor="let personaElemento of personas; let i = index"
+  [persona]="personaElemento"
+  [indice]="i"
+  ></app-persona>
+</div>
+<div class="box">
+    <app-formulario>
+      
+    </app-formulario>
+
+</div>
+
+
+
