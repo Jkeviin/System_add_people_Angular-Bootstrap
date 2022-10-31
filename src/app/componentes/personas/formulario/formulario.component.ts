@@ -1,4 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoggingService } from 'src/app/LoggingService.service';
 import { Persona } from 'src/app/persona.model';
 import { PersonasService } from 'src/app/personas.service';
@@ -9,7 +10,7 @@ import { PersonasService } from 'src/app/personas.service';
   styleUrls: ['./formulario.component.css'],
   // providers: [LoggingService] // Se agrega el servicio al componente (ya está en app.module.ts)
 })
-export class FormularioComponent {
+export class FormularioComponent implements OnInit {
 
   /*  @Output permite enviar datos al componente padre
       EventEmitter en este caso lo que hace es como un canal de comunicación entre el componente hijo y el padre
@@ -27,28 +28,46 @@ export class FormularioComponent {
 
   nombreInput: string = '';
   apellidoInput: string = '';
+  index : number = 0;
 
 
   constructor(private loggingService: LoggingService,
-              private personasService: PersonasService){
+              private personasService: PersonasService,
+              private router: Router,
+              private route: ActivatedRoute){
                 this.personasService.saludar.subscribe(
-                  (indice : number) => alert("El indice es: " + indice));
+                  (indice : number) => alert("El indice es: " + indice));  // subscribe en breves palabras, es un método que se ejecuta cuando se emite un evento y recibe un parámetro que es el dato que se envía
               }  // Se agrega el servicio al constructor para poder usarlo, de lo contrario no se podria usar en el componente
 
 /*   @ViewChild ('nombreInput') nombreInput: ElementRef; // ElementRef es un tipo de dato que permite acceder a los elementos del DOM
   @ViewChild ('apellidoInput') apellidoInput: ElementRef; */
 
-  public agregarPersona(){
-    if(this.nombreInput != '' && this.apellidoInput != ''){
-      let persona1 = new Persona(this.nombreInput, this.apellidoInput);
-      // NativeElement es una propiedad que permite acceder al valor del elemento del DOM
-      //this.personas.push(persona1);
-      //this.personaCreada.emit(persona1); // Hace algo como un return de la persona creada al componente padre
-      // En resumidas palabras, emite la persona creada al componente padre
-      this.personasService.agregarPersona(persona1);
-    }else{
-      alert('Debe ingresar los datos');
+  ngOnInit(): void {
+    this.index = this.route.snapshot.params['id']; // Se obtiene el parámetro id de la ruta actual (se obtiene el id de la persona que se va a editar)
+    // snapshot es una propiedad que permite obtener el valor del parámetro de la ruta
+    if(this.index){
+      let persona : Persona = this.personasService.encontrarPersona(this.index);
+      this.nombreInput = persona.nombre;
+      this.apellidoInput = persona.apellido;
     }
+
   }
 
+  public onGuardarPersona(){
+      let persona1 = new Persona(this.nombreInput, this.apellidoInput);
+      if(this.index){
+        this.personasService.modificarPersona(this.index, persona1);
+      }
+      else{
+        this.personasService.agregarPersona(persona1);
+      }
+      this.router.navigate(['personas']);
+  }
+
+  public onEliminarPersona(index: number){
+    if(this.index != null){
+      this.personasService.eliminarPersona(this.index);
+    }
+    this.router.navigate(['personas']);
+  }
 }

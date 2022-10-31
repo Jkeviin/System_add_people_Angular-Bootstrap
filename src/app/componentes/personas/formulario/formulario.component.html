@@ -1,22 +1,29 @@
-<form class="item">
-      <input
-        type="text"
-        name="nombre"
-        id="nombre"
-        autocomplete="off"
-        placeholder="Nombre"
-        [(ngModel)] = "nombreInput"
-      />
-      <input
-        type="text"
-        name="apellido"
-        id="apellido"
-        autocomplete="off"
-        placeholder="Apellido"
-        [(ngModel)] = "apellidoInput"
-      />
-      <button type="submit"
-      (click)="agregarPersona()">
-        +
-      </button>
-  </form>
+<div class="box">
+  <form class="item" #f="ngForm" (ngSubmit)="f.form.valid && onGuardarPersona()">
+        <input
+          type="text"
+          name="nombre"
+          id="nombre"
+          autocomplete="off"
+          placeholder="Nombre"
+          [(ngModel)] = "nombreInput"
+          required
+        />
+        <input
+          type="text"
+          name="apellido"
+          id="apellido"
+          autocomplete="off"
+          placeholder="Apellido"
+          [(ngModel)] = "apellidoInput"
+          required
+        />
+        <button type="submit" style="cursor: pointer">+</button>
+        <button *ngIf="index != null"
+            type="submit"
+            style="cursor:pointer"
+            class="buttonRed"
+            (click)="onEliminarPersona(index)"
+          >-</button>
+    </form>
+</div>
