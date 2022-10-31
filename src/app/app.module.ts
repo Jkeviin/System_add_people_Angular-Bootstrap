@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { PersonaComponent } from './componentes/persona/persona.component';
 import { FormularioComponent } from './componentes/formulario/formulario.component';
 import { LoggingService } from './LoggingService.service';
 import { PersonasService } from './personas.service';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { PersonasService } from './personas.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [
     LoggingService,
